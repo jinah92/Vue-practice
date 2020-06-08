@@ -4,13 +4,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vue_TodoList</title>
+    <style>
+      .completed {
+        text-decoration: line-through;
+      }
+    </style>
   </head>
   <body>
     <div id="app">
       <h1>ToDoList</h1>
-      <input type="text" />
+      <input v-on:keypress.enter="createToDo" v-model="newInput" type="text" />
+      <button v-on:click="createToDo">추가</button>
       <ul>
-        <li v-for="todo in todos" v-if="!todo.isCompleted">
+        <li v-bind:class="{completed: todo.isCompleted}" v-for="todo in todos">
+          <input v-model="todo.isCompleted" type="checkbox" />
           {{todo.content}}
         </li>
         <!-- <li>Vue js 복습</li>
@@ -23,12 +30,21 @@
         el: '#app',
         data: {
           name: 'maria',
+          newInput: '',
           todos: [
             { content: 'Vue JS 복습', isCompleted: false },
             { content: 'JS 복습', isCompleted: true },
             { content: '코딩테스트 연습', isCompleted: false },
             { content: '인적성 공부', isCompleted: false }
           ]
+        },
+        methods: {
+          createToDo () {
+            // newInput 값을 todos 에 추가
+            this.todos.push({ content: this.newInput, isCompleted: false })
+            this.newInput = ''
+            this.newInput.focus()
+          }
         }
       })
     </script>
