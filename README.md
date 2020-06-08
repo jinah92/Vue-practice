@@ -1,6 +1,6 @@
 # Vue JS
 
-# 핵심
+## Ⅰ. 핵심
 
 ### 1. SPA
 
@@ -23,3 +23,9 @@ Single Page Application
   - Vanilla Javascript DOM 조작
 - 선언형 : 변화를 선언(그림 그리기)
   - 프레임워크를 통한 DOM 조작
+
+## Ⅱ. Vue JS의 요소
+
+### 1. Directive (지시자)
+
+- 'v-for' : 배열과 같은 데이터를 순회
