@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app">
+      <input type="text" id="inputText" oninput="inputAction()" />
+      <p id="tag"></p>
+      <!-- {{name}}<br />
+      <input type="text" v-model="inputText" />
+      <p>{{inputText}}</p> -->
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      const inputAction = () => {
+        let text = document.querySelector('#inputText').value
+        document.querySelector('#tag').innerHTML = text
+      }
+
+      /* const app = new Vue({
+        el: '#app',
+        data: {
+          name: 'jinah choi',
+          inputText: ''
+        }
+      }) */
+    </script>
+  </body>
+</html>
