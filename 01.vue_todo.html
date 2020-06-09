@@ -13,10 +13,16 @@
   <body>
     <div id="app">
       <h1>ToDoList</h1>
+      <select v-model="status">
+        <option value="showAll">모두 보기</option>
+        <option value="showCompleted">완료된 것만 보기</option>
+        <option value="showDoing">미완료된 것만 보기</option>
+      </select>
+      <hr />
       <input v-on:keypress.enter="createToDo" v-model="newInput" type="text" />
       <button v-on:click="createToDo">추가</button>
       <ul>
-        <li v-bind:class="{completed: todo.isCompleted}" v-for="todo in todos">
+        <li v-bind:class="{completed: todo.isCompleted}" v-for="todo in todosByStatus()">
           <input v-model="todo.isCompleted" type="checkbox" />
           {{todo.content}}
         </li>
@@ -29,10 +35,11 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
-      new Vue({
+      const app = new Vue({
         el: "#app",
         data: {
           name: "maria",
+          status: "showAll", // showCompleted, showDoing
           newInput: "",
           todos: [
             { content: "Vue JS 복습", isCompleted: false },
@@ -56,6 +63,17 @@
             // foreach, map, reduce, some, ...
             // 배열을 한번씩 순회화면서, 작업 수행
             this.todos = this.todos.filter((todo) => todo.isCompleted == false);
+          },
+          todosByStatus() {
+            // status = 'showCompleted'
+            if (this.status === "showCompleted") {
+              return this.todos.filter((todo) => todo.isCompleted);
+            }
+            if (this.status === "showDoing") {
+              return this.todos.filter((todo) => !todo.isCompleted);
+            }
+            // status = 'showAll'
+            return this.todos;
           },
         },
       });
