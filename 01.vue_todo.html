@@ -23,30 +23,42 @@
         <!-- <li>Vue js 복습</li>
         <li>Javascript 복습</li> -->
       </ul>
+      <button v-on:click="deleteToDo">
+        완료된 할 일 지우기
+      </button>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
       new Vue({
-        el: '#app',
+        el: "#app",
         data: {
-          name: 'maria',
-          newInput: '',
+          name: "maria",
+          newInput: "",
           todos: [
-            { content: 'Vue JS 복습', isCompleted: false },
-            { content: 'JS 복습', isCompleted: true },
-            { content: '코딩테스트 연습', isCompleted: false },
-            { content: '인적성 공부', isCompleted: false }
-          ]
+            { content: "Vue JS 복습", isCompleted: false },
+            { content: "JS 복습", isCompleted: false },
+            { content: "코딩테스트 연습", isCompleted: false },
+            { content: "인적성 공부", isCompleted: false },
+          ],
         },
         methods: {
-          createToDo () {
+          createToDo() {
             // newInput 값을 todos 에 추가
-            this.todos.push({ content: this.newInput, isCompleted: false })
-            this.newInput = ''
-            this.newInput.focus()
-          }
-        }
-      })
+            // 입력값이 있을 때만,
+            if (this.newInput) {
+              this.todos.push({ content: this.newInput, isCompleted: false });
+              this.newInput = "";
+            } else {
+              alert("값을 먼저 입력하세요");
+            }
+          },
+          deleteToDo() {
+            // foreach, map, reduce, some, ...
+            // 배열을 한번씩 순회화면서, 작업 수행
+            this.todos = this.todos.filter((todo) => todo.isCompleted == false);
+          },
+        },
+      });
     </script>
   </body>
 </html>
