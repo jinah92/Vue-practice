@@ -52,6 +52,9 @@
           localStorage.setItem("todos", JSON.stringify(todos));
         },
         // 조회 (Read)
+        fetch() {
+          return JSON.parse(localStorage.getItem("todos"));
+        },
       };
 
       // ==> todoStorage.save(todos)
@@ -112,6 +115,9 @@
               todoStorage.save(todos);
             },
           },
+        },
+        created: function () {
+          this.todos = todoStorage.fetch();
         },
       });
     </script>
