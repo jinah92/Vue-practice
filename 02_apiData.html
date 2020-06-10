@@ -10,7 +10,7 @@
     <div id="app">
       <button v-on:click="post">get POST!</button>
       <br /><br />
-      <div v-for="content in contents"><strong>{{content.title}}</strong> - {{content.body}}</div>
+      <div v-for="content in contents"><li><strong>{{content.title}}</strong> - {{content.body}}</div></li>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
