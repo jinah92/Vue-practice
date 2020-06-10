@@ -44,3 +44,4 @@ Single Page Application
 - `data: {}`: 관리할 데이터
 - `methods: {}`: 함수
 - `computed: {}`: 함수화된 데이터
+- `watch: {}` : 데이터 변경에 대한 콜백

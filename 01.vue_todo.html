@@ -22,7 +22,11 @@
       <input v-on:keypress.enter="createToDo" v-model="newInput" type="text" />
       <button v-on:click="createToDo">추가</button>
       <ul>
-        <li v-bind:class="{completed: todo.isCompleted}" v-for="todo in todosByStatus">
+        <li
+          :key="todo.id"
+          v-bind:class="{completed: todo.isCompleted}"
+          v-for="todo in todosByStatus"
+        >
           <input v-model="todo.isCompleted" type="checkbox" />
           {{todo.content}}
         </li>
@@ -42,6 +46,15 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
+      const todoStorage = {
+        // 저장 (Create)
+        save(todos) {
+          localStorage.setItem("todos", JSON.stringify(todos));
+        },
+        // 조회 (Read)
+      };
+
+      // ==> todoStorage.save(todos)
       const app = new Vue({
         el: "#app",
         data: {
@@ -49,12 +62,7 @@
           name: "maria",
           status: "showAll", // showCompleted, showDoing
           newInput: "",
-          todos: [
-            { content: "Vue JS 복습", isCompleted: false },
-            { content: "JS 복습", isCompleted: false },
-            { content: "코딩테스트 연습", isCompleted: false },
-            { content: "인적성 공부", isCompleted: false },
-          ],
+          todos: [],
         },
         computed: {
           todosByStatus() {
@@ -74,7 +82,12 @@
             // newInput 값을 todos 에 추가
             // 입력값이 있을 때만,
             if (this.newInput) {
-              this.todos.push({ content: this.newInput, isCompleted: false });
+              this.todos.push({
+                id: String(new Date()),
+                content: this.newInput,
+                isCompleted: false,
+              });
+              //window.localStorage.setItem("todos", {});
               this.newInput = "";
             } else {
               alert("값을 먼저 입력하세요");
@@ -90,6 +103,14 @@
           },
           methodDate() {
             return new Date();
+          },
+        },
+        watch: {
+          todos: {
+            handler: function (todos) {
+              // todo의 값이 변경될 때 함수 호출
+              todoStorage.save(todos);
+            },
           },
         },
       });
