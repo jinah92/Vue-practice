@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <title>VueJS-GETPOST 요청 실습</title>
+  </head>
+  <body>
+    <div id="app">
+      <button v-on:click="post">get POST!</button>
+      <br /><br />
+      <div v-for="content in contents"><strong>{{content.title}}</strong> - {{content.body}}</div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+      new Vue({
+        el: "#app",
+        data: { contents: [] },
+        methods: {
+          post() {
+            alert("get request");
+            axios
+              .get("https://jsonplaceholder.typicode.com/posts")
+              .then((response) => {
+                this.contents = response.data;
+              })
+              .catch((err) => console.log(err));
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

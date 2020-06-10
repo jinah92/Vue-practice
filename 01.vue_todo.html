@@ -22,7 +22,7 @@
       <input v-on:keypress.enter="createToDo" v-model="newInput" type="text" />
       <button v-on:click="createToDo">추가</button>
       <ul>
-        <li v-bind:class="{completed: todo.isCompleted}" v-for="todo in todosByStatus()">
+        <li v-bind:class="{completed: todo.isCompleted}" v-for="todo in todosByStatus">
           <input v-model="todo.isCompleted" type="checkbox" />
           {{todo.content}}
         </li>
@@ -32,12 +32,20 @@
       <button v-on:click="deleteToDo">
         완료된 할 일 지우기
       </button>
+
+      <h1>Computed vs Method 비교</h1>
+      <div v-if="visible">
+        <p>computed : {{computedDate}}</p>
+        <p>method : {{methodDate()}}</p>
+      </div>
+      <button v-on:click="visible = !visible">Toggle</button>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
       const app = new Vue({
         el: "#app",
         data: {
+          visible: true,
           name: "maria",
           status: "showAll", // showCompleted, showDoing
           newInput: "",
@@ -47,6 +55,19 @@
             { content: "코딩테스트 연습", isCompleted: false },
             { content: "인적성 공부", isCompleted: false },
           ],
+        },
+        computed: {
+          todosByStatus() {
+            // status = 'showCompleted'
+            if (this.status === "showCompleted") {
+              return this.todos.filter((todo) => todo.isCompleted);
+            }
+            if (this.status === "showDoing") {
+              return this.todos.filter((todo) => !todo.isCompleted);
+            }
+            // status = 'showAll'
+            return this.todos;
+          },
         },
         methods: {
           createToDo() {
@@ -59,21 +80,16 @@
               alert("값을 먼저 입력하세요");
             }
           },
+          computedDate() {
+            return new Date();
+          },
           deleteToDo() {
             // foreach, map, reduce, some, ...
             // 배열을 한번씩 순회화면서, 작업 수행
             this.todos = this.todos.filter((todo) => todo.isCompleted == false);
           },
-          todosByStatus() {
-            // status = 'showCompleted'
-            if (this.status === "showCompleted") {
-              return this.todos.filter((todo) => todo.isCompleted);
-            }
-            if (this.status === "showDoing") {
-              return this.todos.filter((todo) => !todo.isCompleted);
-            }
-            // status = 'showAll'
-            return this.todos;
+          methodDate() {
+            return new Date();
           },
         },
       });
