@@ -45,3 +45,9 @@ Single Page Application
 - `methods: {}`: 함수
 - `computed: {}`: 함수화된 데이터
 - `watch: {}` : 데이터 변경에 대한 콜백
+
+### 3. 라이프사이클 훅
+
+- `created()` : 객체 생성 직후
+- `beforeMount()`
+  --- Mounted : DOM에 보이기 시작하는 지점
