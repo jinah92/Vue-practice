@@ -27,13 +27,7 @@ export default {
   components: {
     SearchBar,
     VideoPlayer,
-    VideoList
-  },
-  data() {
-    return {
-      videos: [],
-      selectedVideo: null
-    };
+    VideoList,
   },
   methods: {
     changeVideo(video) {
@@ -53,22 +47,21 @@ export default {
             part: "snippet",
             type: "video",
             q: userInput,
-            maxResults: 10
-          }
+            maxResults: 10,
+          },
         })
-        .then(response => {
+        .then((response) => {
           this.videos = response.data.items;
           console.log(this.videos);
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
       //3. 검색어로 검색한 결과를 가져옴.
       console.log("검색어 입력");
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style>
-</style>
+<style></style>
